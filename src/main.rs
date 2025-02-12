@@ -9,6 +9,7 @@ use actix_web::{
 async fn main () -> std::io::Result<()> {
     let server = HttpServer::new(|| {
         App::new()
+            .route("/", web::get().to(ani_server::hello))
     });
 
     server
