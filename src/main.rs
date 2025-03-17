@@ -1,4 +1,6 @@
 use actix_web::{ App, HttpServer, web };
+use actix_files::Files;
+
 use anyhow::Result;
 
 use ani_core::database::schema;
@@ -12,7 +14,7 @@ mod utils;
 
 #[actix_web::main]
 async fn main () -> Result<()> {
-    env_logger::init();
+    env_logger::init_from_env(env_logger::Env::new().default_filter_or("info"));
 
     let config = config::load_config()?;
     let pool = schema::initialize(&config).await?;
@@ -34,6 +36,7 @@ async fn main () -> Result<()> {
                     .route("/updates/{offset}", web::get().to(routes::updates::latest_updates))
                     .route("/synopsis/{mal_id}", web::get().to(routes::anime::fetch_synopsis))
             )
+            .service(Files::new("/static", &config.images).show_files_listing())
     });
 
     server
