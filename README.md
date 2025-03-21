@@ -1,5 +1,7 @@
 # Ani-Server
 
+**Note:** this project is still in development, many features are lacking.
+
 Ani-Server is a REST API for the AniLib ecosystem built using Rust and Actix-web. This server provides various endpoints to fetch anime information, episodes, search results, latest updates, and synopsis.
 
 ## Features
