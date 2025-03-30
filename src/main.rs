@@ -30,8 +30,13 @@ async fn main () -> Result<()> {
             .wrap(actix_web::middleware::Logger::default())
             .service(
                 web::scope("/v1")
-                    .route("/anime/{mal_id}", web::get().to(routes::anime::get_anime))
-                    .route("/anime/{mal_id}/episodes", web::get().to(routes::episodes::fetch_episodes))
+                    .service(
+                        web::scope("/anime")
+                            .route("/{mal_id}", web::get().to(routes::anime::get_anime))
+                            .route("/{mal_id}/episodes", web::get().to(routes::episodes::fetch_episodes))
+                            .route("/{mal_id}/relations", web::get().to(routes::relations::anime_relations))
+                            .route("/{mal_id}/recommendations", web::get().to(routes::recommendations::anime_recommend))
+                    )
                     .route("/search", web::get().to(routes::search::search_anime))
                     .route("/updates/{offset}", web::get().to(routes::updates::latest_updates))
                     .route("/synopsis/{mal_id}", web::get().to(routes::anime::fetch_synopsis))
