@@ -1,3 +1,4 @@
+use actix_web::web::route;
 use actix_web::{ App, HttpServer, web };
 use actix_files::Files;
 
@@ -36,6 +37,13 @@ async fn main () -> Result<()> {
                             .route("/{mal_id}/episodes", web::get().to(routes::episodes::fetch_episodes))
                             .route("/{mal_id}/relations", web::get().to(routes::relations::anime_relations))
                             .route("/{mal_id}/recommendations", web::get().to(routes::recommendations::anime_recommendations))
+                    )
+                    .service(
+                        web::scope("/notes")
+                            .route("", web::get().to(routes::user::user_notes))
+                            .route("/add", web::post().to(routes::user::insert_note))
+                            .route("/edit", web::patch().to(routes::user::edit_note))
+                            .route("/delete/{note_id}", web::delete().to(routes::user::remove_note))
                     )
                     .route("/search", web::get().to(routes::search::search_anime))
                     .route("/updates/{offset}", web::get().to(routes::updates::latest_updates))
