@@ -51,7 +51,7 @@ pub async fn edit_note (pool: web::Data<SqlitePool>, note: web::Json<EditedNote>
 }
 
 pub async fn remove_note (pool: web::Data<SqlitePool>, note_id: web::Path<u32>) -> HttpResponse {
-    let result = delete_note(note_id, &pool).await;
+    let result = delete_note(*note_id, &pool).await;
 
     match result {
         Ok(_) => { HttpResponse::Ok().finish() },
