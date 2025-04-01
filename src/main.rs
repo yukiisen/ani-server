@@ -1,4 +1,3 @@
-use actix_web::web::route;
 use actix_web::{ App, HttpServer, web };
 use actix_files::Files;
 

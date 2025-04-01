@@ -27,7 +27,7 @@ pub async fn user_notes (pool: web::Data<SqlitePool>) -> HttpResponse {
 }
 
 pub async fn insert_note (pool: web::Data<SqlitePool>, note: web::Json<Note>) -> HttpResponse {
-    let result = add_note(note, &pool).await;
+    let result = add_note(&note, &pool).await;
 
     match result {
         Ok(_) => { HttpResponse::Ok().finish() },
@@ -39,7 +39,7 @@ pub async fn insert_note (pool: web::Data<SqlitePool>, note: web::Json<Note>) ->
 }
 
 pub async fn edit_note (pool: web::Data<SqlitePool>, note: web::Json<EditedNote>) -> HttpResponse {
-    let result = set_note(note.id, note.note, &pool).await;
+    let result = set_note(note.id, &note.note, &pool).await;
 
     match result {
         Ok(_) => { HttpResponse::Ok().finish() },
