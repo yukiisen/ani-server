@@ -14,8 +14,8 @@ use queries::delete_note;
 
 use log::error;
 
-pub async fn user_notes (pool: web::Data<SqlitePool>) -> HttpResponse {
-    let notes = get_notes(&pool).await;
+pub async fn user_notes (pool: web::Data<SqlitePool>, note_id: web::Path<u32>) -> HttpResponse {
+    let notes = get_notes(note_id, &pool).await;
 
     match notes {
         Ok(notes) => { HttpResponse::Ok().json(notes) },
