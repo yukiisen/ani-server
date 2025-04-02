@@ -39,7 +39,7 @@ async fn main () -> Result<()> {
                     )
                     .service(
                         web::scope("/notes")
-                            .route("/add", web::post().to(routes::user::insert_note).guard(guard::Header("content-length", &(1024 * 10).to_string())))
+                            .route("/add", web::post().to(routes::user::insert_note).guard(guard::Header("content-length", (1024 * 10).to_string().as_str())))
                             .route("/edit", web::patch().to(routes::user::edit_note))
                             .route("/delete/{note_id}", web::delete().to(routes::user::remove_note))
                             .route("/{mal_id}", web::get().to(routes::user::user_notes))
