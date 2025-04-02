@@ -1,4 +1,4 @@
-use actix_web::{ App, HttpServer, web };
+use actix_web::{ guard, web, App, HttpServer };
 use actix_files::Files;
 
 use anyhow::Result;
@@ -39,7 +39,7 @@ async fn main () -> Result<()> {
                     )
                     .service(
                         web::scope("/notes")
-                            .route("/add", web::post().to(routes::user::insert_note))
+                            .route("/add", web::post().to(routes::user::insert_note).guard(guard::Header("content-length", &(1024 * 10).to_string())))
                             .route("/edit", web::patch().to(routes::user::edit_note))
                             .route("/delete/{note_id}", web::delete().to(routes::user::remove_note))
                             .route("/{mal_id}", web::get().to(routes::user::user_notes))
