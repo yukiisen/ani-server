@@ -42,7 +42,7 @@ async fn main () -> Result<()> {
                             .route("/add", web::post().to(routes::user::insert_note))
                             .route("/edit", web::patch().to(routes::user::edit_note))
                             .route("/delete/{note_id}", web::delete().to(routes::user::remove_note))
-                            .route("/{note_id}", web::get().to(routes::user::user_notes))
+                            .route("/{mal_id}", web::get().to(routes::user::user_notes))
                     )
                     .route("/search", web::get().to(routes::search::search_anime))
                     .route("/updates/{offset}", web::get().to(routes::updates::latest_updates))
