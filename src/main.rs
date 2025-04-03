@@ -1,4 +1,4 @@
-use actix_web::{ guard, web, App, HttpServer };
+use actix_web::{ web, App, HttpServer };
 use actix_files::Files;
 
 use anyhow::Result;
@@ -45,6 +45,7 @@ async fn main () -> Result<()> {
                             .route("/{mal_id}", web::get().to(routes::user::user_notes))
                     )
                     .route("/search", web::get().to(routes::search::search_anime))
+                    .route("/top/{limit}/{offset}", web::get().to(routes::top::top_animes))
                     .route("/updates/{offset}", web::get().to(routes::updates::latest_updates))
                     .route("/synopsis/{mal_id}", web::get().to(routes::anime::fetch_synopsis))
             )
