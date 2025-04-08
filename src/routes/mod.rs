@@ -6,3 +6,4 @@ pub mod search;
 pub mod updates;
 pub mod relations;
 pub mod episodes;
+pub mod lists;
